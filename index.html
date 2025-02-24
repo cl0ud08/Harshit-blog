@@ -14,7 +14,6 @@
 <body>
 
     <header>
-        <h1>My Blog</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -23,10 +22,24 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <section id="recent-posts">
-            <h2>Recent Posts</h2>
+            <select id="category-filter" onchange="handleCategoryChange()" 
+            style="padding: 10px 15px; font-size: 16px; border: 2px solid #ff8c00; 
+                   border-radius: 5px; background-color: black; color: white; 
+                   cursor: pointer; transition: all 0.3s ease;"
+            onmouseover="this.style.backgroundColor='#ff8c00'; this.style.color='black';"
+            onmouseout="this.style.backgroundColor='black'; this.style.color='white';"
+            onfocus="this.style.borderColor='#ff4500';">
+            <option value="All">All</option>
+            <option value="AWS">AWS</option>
+            <option value="DevOps">DevOps</option>
+            <option value="Python">Python</option>
+        </select>
+        
+
+            <div id="blog-list"></div>
+            
             <div id="blog-list">
                 <!-- JavaScript will dynamically insert blog posts here -->
             </div>
@@ -35,12 +48,12 @@
 
     <section id="about">
         <h2>About Me</h2>
-        <p>Welcome to my personal blog where I share insights on technology, programming, and life.</p>
+        <p>Welcome to my personal blog where I share insights on technology and programming.</p>
     </section>
 
     <section id="contact">
         <h2>Contact</h2>
-        <p>Email me at: <a href="mailto:harshit.109350@gmail.com">yourname@example.com</a></p>
+        <p>Email me at: <a href="mailto:harshit.109350@gmail.com">harshit.109350@gmail.com</a></p>
     </section>
     <script src="script.js"></script>
 </body>
