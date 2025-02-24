@@ -2,7 +2,7 @@
 const blogPosts = [
     { title: "Hosting a static website using Amazon S3", link: "blog/post1.html", date: "Feb 24, 2025", category: "AWS" },
     { title: "Automating Continuous Delivery: Deploying a Dockerized FastAPI App with GitHub Actions", link: "blog/post2.html", date: "Feb 25, 2025", category: "DevOps" },
-    { title: "How to Deploy Websites for Free", link: "blog/post3.html", date: "Feb 26, 2025", category: "Web Hosting" }
+    { title: "", link: "blog/post3.html", date: "Feb 26, 2025", category: "DSA" }
 ];
 
 // Function to display blogs by category
