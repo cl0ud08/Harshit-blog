@@ -1,14 +1,18 @@
-// List of blog posts
+// List of blog posts with categories
 const blogPosts = [
-    { title: "Hosting a static website using Amazon S3", link: "blog/post1.html", date: "Feb 24, 2025" },
-    { title: "Understanding JavaScript Closures", link: "blog/post2.html", date: "Feb 25, 2025" },
-    { title: "How to Deploy Websites for Free", link: "blog/post3.html", date: "Feb 26, 2025" }
+    { title: "Hosting a static website using Amazon S3", link: "blog/post1.html", date: "Feb 24, 2025", category: "AWS" },
+    { title: "Automating Continuous Delivery: Deploying a Dockerized FastAPI App with GitHub Actions", link: "blog/post2.html", date: "Feb 25, 2025", category: "DevOps" },
+    { title: "How to Deploy Websites for Free", link: "blog/post3.html", date: "Feb 26, 2025", category: "Web Hosting" }
 ];
 
-// Function to display blogs
-function loadBlogPosts() {
+// Function to display blogs by category
+function loadBlogPosts(category = "All") {
     let blogList = document.getElementById("blog-list");
-    blogPosts.forEach(post => {
+    blogList.innerHTML = ""; // Clear previous posts
+
+    let filteredPosts = category === "All" ? blogPosts : blogPosts.filter(post => post.category === category);
+
+    filteredPosts.forEach(post => {
         let postItem = document.createElement("div");
         postItem.classList.add("blog-item");
         postItem.innerHTML = `<a href="${post.link}">${post.title}</a><br><small>${post.date}</small>`;
@@ -16,5 +20,11 @@ function loadBlogPosts() {
     });
 }
 
+// Function to handle category change
+function handleCategoryChange() {
+    let selectedCategory = document.getElementById("category-filter").value;
+    loadBlogPosts(selectedCategory);
+}
+
 // Load blogs when the page loads
-document.addEventListener("DOMContentLoaded", loadBlogPosts);
+document.addEventListener("DOMContentLoaded", () => loadBlogPosts());
