@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automate FastAPI Deployment with GitHub Actions</title>
+    <style>
+        body {
+            background: #121212;
+            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff8c00, #ff3d00);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(255, 63, 63, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            padding: 140px 10%;
+            max-width: 900px;
+            margin: auto;
+            text-align: left;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #1e1e1e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
+        }
+
+        h2 {
+            color: #ffcc00;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+        }
+
+        code {
+            background: #333;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            color: #ffcc00;
+        }
+
+        pre {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ffcc00;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 120px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Automate FastAPI Deployment with GitHub Actions</h1>
+    </header>
+
+    <main>
+        <section>
+            <p>Learn how to deploy a FastAPI application using GitHub Actions for CI/CD automation.</p>
+        </section>
+
+        <section>
+            <ol>
+                <li>
+                    <h2>1️. Set Up Your FastAPI Project</h2>
+                    <p>Ensure your project has a <code>main.py</code> file and a <code>requirements.txt</code> for dependencies.</p>
+                </li>
+
+                <li>
+                    <h2>2️. Create a Dockerfile</h2>
+                    <p>Define how your FastAPI app should be containerized.</p>
+                    <pre>
+FROM python:3.9
+WORKDIR /app
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+                    </pre>
+                </li>
+
+                <li>
+                    <h2>3️. Configure GitHub Actions</h2>
+                    <p>Create a <code>.github/workflows/deploy.yml</code> file.</p>
+                    <pre>
+name: FastAPI CI/CD
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
+                    </pre>
+                </li>
+
+                <li>
+                    <h2>4️. Deploy to Server</h2>
+                    <p>Use SSH to pull the image and restart the container on your VPS.</p>
+                    <pre>
+ssh user@your-server "docker pull ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest && docker run -d -p 8000:8000 --name fastapi-app ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest"
+                    </pre>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2025 FastAPI Deployment Guide | All Rights Reserved
+    </footer>
+</body>
+</html>

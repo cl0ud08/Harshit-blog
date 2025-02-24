@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Deployment with GitHub Actions</title>
+    <style>
+        body {
+            background: #121212;
+            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .back-link {
+            margin-top: 30px;
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff8c00, #ff3d00);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(255, 63, 63, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            padding: 140px 10%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        ol {
+            padding-left: 25px;
+        }
+
+        li {
+            background: #1e1e1e;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(255, 140, 0, 0.4);
+            text-align: left;
+        }
+
+        pre {
+            background: #252525;
+            color: #ffcc00;
+            padding: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FastAPI Deployment with GitHub Actions</h1>
+    </header>
+
+    <main>
+        <section>
+            <ol>
+                <li>
+                    <h3>Step 1: Install Podman (Optional)</h3>
+                    <p>If using Podman instead of Docker, install and set up Podman:</p>
+                    <pre>podman machine init
+podman machine start
+alias docker=podman
+docker --version</pre>
+                </li>
+
+                <li>
+                    <h3>Step 2: Create and Configure a Dockerfile</h3>
+                    <p>Ensure your project has a <code>Dockerfile</code>:</p>
+                    <pre>FROM ubuntu:latest
+RUN apt update && apt install -y python3-pip
+WORKDIR /app
+COPY . .
+RUN pip3 install -r requirements.txt
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</pre>
+                </li>
+
+                <li>
+                    <h3>Step 3: Generate a Docker Token</h3>
+                    <p>Follow these steps:</p>
+                    <pre>1. Go to https://hub.docker.com/ → Sign in
+2. Click Account Settings → Security → Access Tokens
+3. Click Generate Token
+4. Use this token for GitHub Actions authentication</pre>
+                </li>
+
+                <li>
+                    <h3>Step 4: Set GitHub Actions Secrets</h3>
+                    <p>Add <code>DOCKERTOKEN</code> in GitHub repository settings:</p>
+                    <pre>https://github.com/&lt;username&gt;/&lt;repo&gt;/settings/secrets/actions/new</pre>
+                </li>
+
+                <li>
+                    <h3>Step 5: Create GitHub Actions Workflow</h3>
+                    <p>Create <code>.github/workflows/DockerBuild.yml</code>:</p>
+                    <pre>name: Docker image build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v1
+      - name: Build & Push Image
+        run: |
+          echo ${{ secrets.DOCKERTOKEN }} | docker login -u "&lt;your-dockerhub-username&gt;" --password-stdin
+          docker build -t &lt;your-dockerhub-username&gt;/&lt;image-name&gt;:latest .
+          docker push &lt;your-dockerhub-username&gt;/&lt;image-name&gt;:latest</pre>
+                </li>
+
+                <li>
+                    <h3>Step 6: Push Code to GitHub</h3>
+                    <p>Run these commands to initialize and push your repository:</p>
+                    <pre>git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/&lt;your-username&gt;/&lt;repo&gt;.git
+git push -u origin main</pre>
+                </li>
+
+                <li>
+                    <h3>Step 7: Trigger Deployment</h3>
+                    <p>Once you push the code, GitHub Actions will automatically build and deploy your Docker image.</p>
+                </li>
+            </ol>
+        </section>
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </main>
+    
+</body>
+</html>
