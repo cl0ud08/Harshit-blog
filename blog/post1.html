@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automate FastAPI Deployment with GitHub Actions</title>
+    <title>Deploy a Static Website on Amazon S3</title>
     <style>
+        /* General Styles */
         body {
             background: #121212;
             color: #e0e0e0;
-            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
             text-align: center;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.8;
         }
 
+        /* Header */
         header {
             background: linear-gradient(135deg, #ff8c00, #ff3d00);
             color: white;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0px 4px 8px rgba(255, 63, 63, 0.3);
             position: fixed;
@@ -29,22 +31,24 @@
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
+            letter-spacing: 1px;
             margin: 0;
         }
 
+        /* Main Content */
         main {
-            padding: 140px 10%;
+            padding: 120px 10%;
             max-width: 900px;
             margin: auto;
-            text-align: left;
         }
 
         section {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
+        /* Steps List */
         ol {
             list-style: none;
             padding: 0;
@@ -56,36 +60,38 @@
             margin: 20px 0;
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+            text-align: left;
+        }
+
+        li:hover {
+            transform: scale(1.03);
         }
 
         h2 {
             color: #ffcc00;
             font-size: 1.4rem;
-            margin-bottom: 10px;
         }
 
         p {
             font-size: 1.1rem;
         }
 
+        a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         code {
             background: #333;
-            padding: 5px;
+            padding: 3px 6px;
             border-radius: 5px;
             font-size: 0.95rem;
             color: #ffcc00;
         }
 
-        pre {
-            background: #1a1a1a;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #ffcc00;
-        }
-
+        /* Footer */
         footer {
             background: #222;
             color: white;
@@ -93,86 +99,106 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            text-align: center;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
 
+        /* Back to Home Link */
+        .back-link {
+            margin-top: 30px;
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             main {
                 padding: 120px 5%;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            p {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- Header -->
     <header>
-        <h1>Automate FastAPI Deployment with GitHub Actions</h1>
+        <h1>How to Deploy a Static Website on Amazon S3</h1>
     </header>
 
+    <!-- Main Content -->
     <main>
         <section>
-            <p>Learn how to deploy a FastAPI application using GitHub Actions for CI/CD automation.</p>
+            <p>Learn how to host your static website on Amazon S3 with this step-by-step guide.</p>
         </section>
 
         <section>
             <ol>
                 <li>
-                    <h2>1️. Set Up Your FastAPI Project</h2>
-                    <p>Ensure your project has a <code>main.py</code> file and a <code>requirements.txt</code> for dependencies.</p>
+                    <h2>1️ Create or Sign in to Your AWS Account</h2>
+                    <p>Visit <a href="https://aws.amazon.com/" target="_blank">AWS</a>, sign in, or create a new account.</p>
                 </li>
 
                 <li>
-                    <h2>2️. Create a Dockerfile</h2>
-                    <p>Define how your FastAPI app should be containerized.</p>
-                    <pre>
-FROM python:3.9
-WORKDIR /app
-COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-                    </pre>
+                    <h2>2️ Create an S3 Bucket</h2>
+                    <p>Go to <strong>AWS Console → Services → S3</strong>. Click <strong>Create Bucket</strong>, set a unique name, select a region, and create it.</p>
+                    <img src="assets/S3bucket.png"  style="max-width: 100%; height: auto;">
+
+                </li>
+                
+
+                <li>
+                    <h2>3️ Enable Static Website Hosting</h2>
+                    <p>In the bucket, go to <strong>Properties</strong> → <strong>Static website hosting</strong> → <strong>Enable</strong>. Set the index document as <code>index.html</code>.</p>
                 </li>
 
                 <li>
-                    <h2>3️. Configure GitHub Actions</h2>
-                    <p>Create a <code>.github/workflows/deploy.yml</code> file.</p>
-                    <pre>
-name: FastAPI CI/CD
-
-on: [push]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
-      
-      - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-      
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
-                    </pre>
+                    <h2>4️ Upload Your Website Files</h2>
+                    <p>In the <strong>Objects</strong> tab, click <strong>Upload</strong>, select your HTML, CSS, and assets, and confirm the upload.</p>
+                    <img src="assets/upload.png"  style="max-width: 100%; height: auto;">
                 </li>
 
                 <li>
-                    <h2>4️. Deploy to Server</h2>
-                    <p>Use SSH to pull the image and restart the container on your VPS.</p>
-                    <pre>
-ssh user@your-server "docker pull ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest && docker run -d -p 8000:8000 --name fastapi-app ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest"
+                    <h2>5️ Make Your Files Public</h2>
+                    <p>In <strong>Permissions</strong>, disable "Block all public access" and add a bucket policy for public read access.</p>
+                    <pre style="background: #333; padding: 10px; border-radius: 8px; color: #ffcc00; text-align: left; overflow-x: auto;">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }
+  ]
+}
                     </pre>
+                    <img src="assets/permissions.png" style="max-width: 100%; height: auto;">
+                </li>
+                
+
+                <li>
+                    <h2>6️ Get Your Website URL</h2>
+                    <p>Find the <strong>Bucket website endpoint</strong> in <strong>Static website hosting</strong> and visit the link to view your site.</p>
+                    <a href="https://harshit-cafe.s3.us-east-1.amazonaws.com/Harshit-Cafe/index.html" target="_blank">Click here to visit</a>
                 </li>
             </ol>
         </section>
-    </main>
 
-    <footer>
-        &copy; 2025 FastAPI Deployment Guide | All Rights Reserved
-    </footer>
+        <a href="../index.html" class="back-link">← Back to Home</a>
+
+    </main>
 </body>
 </html>
