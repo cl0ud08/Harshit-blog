@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential DSA Topics</title>
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0077b6, #005f73);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 150, 255, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            padding: 140px 10%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .content-box {
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 150, 255, 0.4);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 45%;
+            box-sizing: border-box;
+        }
+
+        .content-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 150, 255, 0.5);
+        }
+
+        ol {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        li {
+            background: #21262d;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 150, 255, 0.3);
+            text-align: left;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 150, 255, 0.5);
+        }
+
+        h3 {
+            color: #00aaff;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: "📌 ";
+            margin-right: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #00aaff;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #66d9ff;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 120px 5%;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Essential DSA Topics</h1>
+    </header>
+
+    <main>
+        <div class="content-container">
+            <div class="content-box">
+                <h3>Arrays and Strings</h3>
+                <p>Basic operations, sorting, searching, two-pointer approach.</p>
+            </div>
+            <div class="content-box">
+                <h3>Linked Lists</h3>
+                <p>Singly and doubly linked lists, cycle detection, reversal techniques.</p>
+            </div>
+            <div class="content-box">
+                <h3>Stacks and Queues</h3>
+                <p>Implementation, applications like LRU cache, parenthesis matching.</p>
+            </div>
+            <div class="content-box">
+                <h3>Recursion and Backtracking</h3>
+                <p>Solving problems using recursion, subset generation, maze problems.</p>
+            </div>
+            <div class="content-box">
+                <h3>Sorting and Searching</h3>
+                <p>Quick Sort, Merge Sort, Binary Search, and their complexities.</p>
+            </div>
+            <div class="content-box">
+                <h3>Dynamic Programming</h3>
+                <p>Knapsack, longest common subsequence, optimal substructure problems.</p>
+            </div>
+            <div class="content-box">
+                <h3>Graph Algorithms</h3>
+                <p>BFS, DFS, shortest paths (Dijkstra, Bellman-Ford), MST (Kruskal, Prim).</p>
+            </div>
+            <div class="content-box">
+                <h3>Tree Data Structure</h3>
+                <p>Binary trees, BST, AVL trees, tree traversal techniques.</p>
+            </div>
+            <div class="content-box">
+                <h3>Hashing</h3>
+                <p>Hash tables, collision handling, applications like anagrams.</p>
+            </div>
+            <div class="content-box">
+                <h3>Greedy Algorithms</h3>
+                <p>Huffman coding, activity selection, greedy vs. dynamic programming.</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </main>
+</body>
+</html>

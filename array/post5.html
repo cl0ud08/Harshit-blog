@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential DSA Topics - Array & String Questions</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a192f;
+            color: #ccd6f6;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2f80ed, #56ccf2);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 150, 255, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+        }
+
+        main {
+            padding: 120px 20px 40px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .content-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .content-box {
+            background: #112240;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 150, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #ccd6f6;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 150, 255, 0.4);
+        }
+
+        .content-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #00c7ff;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .content-box p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #a0aec0;
+            line-height: 1.5;
+        }
+
+        .content-box a {
+            display: inline-block;
+            font-size: 1.1rem;
+            color: #00aaff;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .content-box a:hover {
+            color: #66d9ff;
+            border-color: #66d9ff;
+        }
+
+        .back-link {
+            font-size: 1.2rem;
+            margin-top: 40px;
+            color: #00aaff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: #66d9ff;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.1), rgba(0, 150, 255, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .content-box:hover::before {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            main {
+                padding: 100px 10px 20px;
+            }
+
+            .content-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .content-box h3 {
+                font-size: 1.2rem;
+            }
+
+            .content-box p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Array & String Questions</h1>
+    </header>
+
+    <main>
+        <div class="content-container">
+            <!-- Array and String Questions List -->
+            <div class="content-box">
+                <h3>1. Two Sum</h3>
+                <p>Given an array of integers, return the indices of the two numbers that add up to a specific target.</p>
+                <a href="https://leetcode.com/problems/two-sum/" target="_blank">Leetcode</a> | 
+                <a href="/array/question1.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>2. Longest Substring Without Repeating Characters</h3>
+                <p>Given a string, find the length of the longest substring without repeating characters.</p>
+                <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank">Leetcode</a> | 
+                <a href="question2.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>3. Find the Duplicate Number</h3>
+                <p>Given a non-empty array of integers, every element appears twice except for one. Find that single one.</p>
+                <a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank">Leetcode</a> | 
+                <a href="question3.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>4. Container With Most Water</h3>
+                <p>Given n non-negative integers representing the heights of vertical lines, find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
+                <a href="https://leetcode.com/problems/container-with-most-water/" target="_blank">Leetcode</a> | 
+                <a href="question4.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>5. Reverse a String</h3>
+                <p>Write a program that takes a string as input and outputs the string in reverse order.</p>
+                <a href="https://www.geeksforgeeks.org/reverse-a-string/" target="_blank">GeeksforGeeks</a> | 
+                <a href="question5.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>6. Move Zeroes</h3>
+                <p>Given an array, write a function that moves all zeroes to the end while maintaining the relative order of the non-zero elements.</p>
+                <a href="https://leetcode.com/problems/move-zeroes/" target="_blank">Leetcode</a> | 
+                <a href="question6.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>7. String Compression</h3>
+                <p>Given an array of characters, compress it using the following algorithm. Each letter appears consecutively in the array. Compress the string by counting the occurrences of each character.</p>
+                <a href="https://leetcode.com/problems/string-compression/" target="_blank">Leetcode</a> | 
+                <a href="question7.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>8. Longest Palindromic Substring</h3>
+                <p>Given a string s, return the longest palindromic substring.</p>
+                <a href="https://leetcode.com/problems/longest-palindromic-substring/" target="_blank">Leetcode</a> | 
+                <a href="question8.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>9. Zigzag Conversion</h3>
+                <p>Given a string s and an integer numRows, return the string formed by the characters of s arranged in a zigzag pattern.</p>
+                <a href="https://leetcode.com/problems/zigzag-conversion/" target="_blank">Leetcode</a> | 
+                <a href="question9.md" target="_blank">View Explanation</a>
+            </div>
+            <div class="content-box">
+                <h3>10. Anagram Check</h3>
+                <p>Given two strings, check if they are anagrams of each other.</p>
+                <a href="https://www.geeksforgeeks.org/check-whether-two-strings-are-anagram-of-each-other/" target="_blank">GeeksforGeeks</a> | 
+                <a href="question10.md" target="_blank">View Explanation</a>
+            </div>
+        </div>
+        <a href="../blog/post4.html" class="back-link">← Back to Home</a>
+    </main>
+</body>
+</html>

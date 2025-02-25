@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential Docker Commands</title>
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0077b6, #005f73);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 150, 255, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            padding: 140px 10%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        ol {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        li {
+            background: #161b22;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 150, 255, 0.4);
+            text-align: left;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 150, 255, 0.5);
+        }
+
+        h3 {
+            color: #00aaff;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: "🐳 ";
+            margin-right: 10px;
+        }
+
+        pre {
+            background: #252525;
+            color: #00ffcc;
+            padding: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .back-link {
+            display: inline-block;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #00aaff;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #66d9ff;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 120px 5%;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            li {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Essential Docker Commands</h1>
+    </header>
+
+    <main>
+        <section>
+            <ol>
+                <li>
+                    <h3>Check Docker Installation</h3>
+                    <p>Verify if Docker is installed and running:</p>
+                    <pre>docker --version
+docker info</pre>
+                </li>
+
+                <li>
+                    <h3>Work with Docker Images</h3>
+                    <p>Download, list, and remove images:</p>
+                    <pre>docker pull ubuntu
+docker images
+docker rmi &lt;image_id&gt;</pre>
+                </li>
+
+                <li>
+                    <h3>Create and Manage Containers</h3>
+                    <p>Run, stop, and remove containers:</p>
+                    <pre>docker run -d -p 8080:80 nginx
+docker ps
+docker stop &lt;container_id&gt;
+docker rm &lt;container_id&gt;</pre>
+                </li>
+
+                <li>
+                    <h3>Build and Push Docker Images</h3>
+                    <p>Build a Docker image and push it to Docker Hub:</p>
+                    <pre>docker build -t myimage:latest .
+docker tag myimage:latest &lt;your-dockerhub-username&gt;/myimage:latest
+docker login
+docker push &lt;your-dockerhub-username&gt;/myimage:latest</pre>
+                </li>
+
+                <li>
+                    <h3>Manage Logs and Inspect Containers</h3>
+                    <p>View container logs and inspect details:</p>
+                    <pre>docker logs &lt;container_id&gt;
+docker inspect &lt;container_id&gt;</pre>
+                </li>
+
+                <li>
+                    <h3>Work with Docker Volumes</h3>
+                    <p>Create, list, and remove volumes:</p>
+                    <pre>docker volume create myvolume
+docker volume ls
+docker volume rm myvolume</pre>
+                </li>
+
+                <li>
+                    <h3>Clean Up Docker System</h3>
+                    <p>Remove unused containers, images, and volumes:</p>
+                    <pre>docker system prune -a</pre>
+                </li>
+
+                <li>
+                    <h3>Docker Networks</h3>
+                    <p>List and create Docker networks:</p>
+                    <pre>docker network ls
+docker network create mynetwork</pre>
+                </li>
+
+                <li>
+                    <h3>Docker Compose</h3>
+                    <p>Start and stop multi-container applications:</p>
+                    <pre>docker-compose up -d
+docker-compose down</pre>
+                </li>
+
+                <li>
+                    <h3>Advanced Monitoring</h3>
+                    <p>View real-time container stats:</p>
+                    <pre>docker stats</pre>
+                </li>
+
+                <li>
+                    <h3>Docker Swarm</h3>
+                    <p>Enable swarm mode and deploy services:</p>
+                    <pre>docker swarm init
+docker service create --name web -p 80:80 nginx</pre>
+                </li>
+            </ol>
+        </section>
+        
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </main>
+</body>
+</html>
