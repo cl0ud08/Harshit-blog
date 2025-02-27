@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longest Substring Without Repeating Characters - Explanation</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00bcd4, #0288d1);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 150, 255, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        ol {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        li {
+            background: #2c2f36;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 150, 255, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 14px rgba(0, 150, 255, 0.7);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background: #2b2b2b;
+            color: #c6f7ff;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #00bcd4;
+            margin-top: 30px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0288d1;
+        }
+
+        .code-example {
+            background-color: #272727;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            color: #f0f0f0;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .code-example span {
+            color: #b5d6f1;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            li {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Problem Statement Section -->
+        <section>
+            <h2>Problem Statement</h2>
+            <p>Given a string, find the length of the longest substring without repeating characters.</p>
+            <p>You need to return the length of the longest substring that does not contain any duplicate characters.</p>
+        </section>
+
+        <!-- Examples Section -->
+        <section>
+            <h2>Examples</h2>
+            <ol>
+                <li>
+                    <h3>Example 1</h3>
+                    <pre>Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.</pre>
+                </li>
+
+                <li>
+                    <h3>Example 2</h3>
+                    <pre>Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.</pre>
+                </li>
+
+                <li>
+                    <h3>Example 3</h3>
+                    <pre>Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3. Notice that the answer must be a substring "wke", not "pwke".</pre>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Approach Section -->
+        <section>
+            <h2>Approach</h2>
+            <p>To solve this problem efficiently, we use the sliding window technique combined with a hash map to track the characters in the current window. We maintain a left pointer to represent the start of the current window and a right pointer that we move through the string. For each character, we check if it exists in the hash map, and if so, we update the left pointer to ensure that the substring has no repeating characters. The length of the longest substring is updated as we progress.</p>
+            <p>This approach achieves a time complexity of <strong>O(n)</strong>, where n is the length of the input string.</p>
+        </section>
+
+        <!-- Solution Code Section -->
+        <section>
+            <h2>Solution Code (C++)</h2>
+            <div class="code-example">
+                <span>#include &lt;iostream&gt;</span><br>
+                <span>#include &lt;unordered_map&gt;</span><br>
+                <span>#include &lt;string&gt;</span><br><br>
+                <span>using namespace std;</span><br><br>
+                <span>int lengthOfLongestSubstring(string s) {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;unordered_map&lt;char, int&gt; char_map;</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;int left = 0, maxLength = 0;</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;for (int right = 0; right &lt; s.size(); ++right) {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (char_map.find(s[right]) != char_map.end()) {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left = max(left, char_map[s[right]] + 1);</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;char_map[s[right]] = right;</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxLength = max(maxLength, right - left + 1);</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;}</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;return maxLength;</span><br>
+                <span>}</span><br><br>
+                <span>int main() {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;string s = "abcabcbb";</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;int result = lengthOfLongestSubstring(s);</span><br><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Output: " &lt;&lt; result &lt;&lt; endl;</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;return 0;</span><br>
+                <span>}</span>
+            </div>
+        </section>
+
+        <!-- Example Usage Section -->
+        <section>
+            <h2>Example Usage</h2>
+            <pre>string s = "abcabcbb";
+int result = lengthOfLongestSubstring(s);
+cout &lt;&lt; "Output: " &lt;&lt; result &lt;&lt; endl;</pre>
+        </section>
+
+        <!-- Explanation Section -->
+        <section>
+            <h2>Explanation</h2>
+            <p>In the function <code>lengthOfLongestSubstring</code>, we use two pointers, <code>left</code> and <code>right</code>, to maintain a sliding window. We also use a hash map <code>char_map</code> to track the last index of each character. For each character at position <code>right</code>, we update the <code>left</code> pointer if the character already exists in the window. The length of the longest substring is calculated as <code>right - left + 1</>.</p>
+        </section>
+
+        <a href="../array/post5.html" class="back-link">← Back to Home</a>
+    </main>
+
+</body>
+</html>

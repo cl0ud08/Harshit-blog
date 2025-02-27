@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Duplicate Number - Explanation</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00bcd4, #0288d1);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 150, 255, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        ol {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        li {
+            background: #2c2f36;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 150, 255, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 14px rgba(0, 150, 255, 0.7);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background: #2b2b2b;
+            color: #c6f7ff;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #00bcd4;
+            margin-top: 30px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0288d1;
+        }
+
+        .code-example {
+            background-color: #272727;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            color: #f0f0f0;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .code-example span {
+            color: #b5d6f1;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            li {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Problem Statement Section -->
+        <section>
+            <h2>Problem Statement</h2>
+            <p>Given an integer array <code>nums</code> containing <code>n + 1</code> integers where each integer is between 1 and <code>n</code> (inclusive), prove that at least one duplicate number must exist. Find the duplicate number without using extra space and in <strong>O(n)</strong> time complexity.</p>
+        </section>
+
+        <!-- Examples Section -->
+        <section>
+            <h2>Examples</h2>
+            <ol>
+                <li>
+                    <h3>Example 1</h3>
+                    <pre>Input: nums = [1, 3, 4, 2, 2]
+Output: 2</pre>
+                </li>
+
+                <li>
+                    <h3>Example 2</h3>
+                    <pre>Input: nums = [3, 1, 3, 4, 2]
+Output: 3</pre>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Approach Section -->
+        <section>
+            <h2>Approach</h2>
+            <p>We can solve this problem using Floyd's Tortoise and Hare (Cycle Detection) algorithm. The idea is to treat the elements in the array as pointers and use two pointers to detect a cycle. Once the cycle is detected, we use another pointer to find the starting point of the cycle, which is the duplicate number.</p>
+            <p>This approach achieves a time complexity of <strong>O(n)</strong> and space complexity of <strong>O(1)</strong>.</p>
+        </section>
+
+        <!-- Solution Code Section -->
+        <section>
+            <h2>Solution Code (C++)</h2>
+            <div class="code-example">
+                <span>#include &lt;iostream&gt;</span><br>
+                <span>#include &lt;vector&gt;</span><br><br>
+                <span>using namespace std;</span><br><br>
+                <span>int findDuplicate(vector&lt;int&gt;&amp; nums) {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;int slow = nums[0];</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;int fast = nums[0];</span><br><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;while (true) {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slow = nums[slow];</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fast = nums[nums[fast]];</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (slow == fast) break;</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;fast = nums[0];</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;while (slow != fast) {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slow = nums[slow];</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fast = nums[fast];</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;return slow;</span><br>
+                <span>}</span><br><br>
+                <span>int main() {</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;int&gt; nums = {1, 3, 4, 2, 2};</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;int result = findDuplicate(nums);</span><br><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Output: " &lt;&lt; result &lt;&lt; endl;</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;return 0;</span><br>
+                <span>}</span>
+            </div>
+        </section>
+
+        <!-- Example Usage Section -->
+        <section>
+            <h2>Example Usage</h2>
+            <pre>vector&lt;int&gt; nums = {1, 3, 4, 2, 2};
+int result = findDuplicate(nums);
+cout &lt;&lt; "Output: " &lt;&lt; result &lt;&lt; endl;</pre>
+        </section>
+
+        <!-- Explanation Section -->
+        <section>
+            <h2>Explanation</h2>
+            <p>In the function <code>findDuplicate</code>, we use two pointers, slow and fast, to traverse the array. The slow pointer moves one step at a time, and the fast pointer moves two steps at a time. When the slow pointer and fast pointer meet, we have detected a cycle. We then reset the fast pointer to the start of the array and move both pointers one step at a time to find the duplicate number, which is the starting point of the cycle.</p>
+        </section>
+
+        <a href="../array/post5.html" class="back-link">← Back to Home</a>
+    </main>
+
+</body>
+</html>
