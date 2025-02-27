@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container With Most Water - Explanation</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00bcd4, #0288d1);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 150, 255, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        main {
+            margin-top: 120px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        pre {
+            background: #2b2b2b;
+            color: #c6f7ff;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section>
+            <h2>Problem Statement</h2>
+            <p>Given n non-negative integers representing the heights of vertical lines, find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
+        </section>
+
+        <section>
+            <h2>Example</h2>
+            <pre>Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The maximum container is formed between height[1] and height[8] with an area of 49.</pre>
+        </section>
+
+        <section>
+            <h2>Approach</h2>
+            <p>To maximize the water contained, use the two-pointer technique. Start with two pointers, one at the beginning and one at the end. Calculate the area and move the pointer with the smaller height inwards. Repeat until the pointers meet.</p>
+            <p>This approach runs in <strong>O(n)</strong> time complexity.</p>
+        </section>
+
+        <section>
+            <h2>Solution Code (C++)</h2>
+            <pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt; // For min and max functions
+
+using namespace std;
+
+// Function to calculate the maximum water container area
+int maxArea(vector<int>& height) {
+    int left = 0, right = height.size() - 1;
+    int max_water = 0;
+
+    // Use two pointers: one at the start and one at the end
+    while (left < right) {
+        // Calculate area formed by current left and right pointers
+        int minHeight = min(height[left], height[right]);
+        int width = right - left;
+        int area = minHeight * width;
+
+        // Update max water container area
+        max_water = max(max_water, area);
+
+        // Move the pointer with the smaller height inward
+        if (height[left] < height[right])
+            left++;
+        else
+            right--;
+    }
+    
+    return max_water;
+}
+
+int main() {
+    // Example input
+    vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    
+    // Output the maximum water container area
+    cout << "Maximum water: " << maxArea(height) << endl;
+    
+    return 0;
+}</pre>
+        </section>
+    </main>
+</body>
+</html>
